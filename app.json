@@ -2,6 +2,7 @@
   "expo": {
     "name": "job-finder",
     "slug": "job-finder",
+    "scheme": "job-finder",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/job-finder.png",
@@ -23,6 +24,7 @@
     },
     "web": {
       "favicon": "./assets/job-finder.png"
-    }
+    },
+    "plugins": ["expo-router"]
   }
 }

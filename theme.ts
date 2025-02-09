@@ -1,4 +1,9 @@
 export const theme = {
-  colorPurple: "#7e46fb",
+  colorCerulean: "#1a759f",
   colorWhite: "#fff",
+  colorBlack: "#000",
+  colorGrey: "grey",
+  colorLightGrey: "#eee",
+  colorRed: "#ee6055",
+  colorPurple: "#7e46fb",
 };
