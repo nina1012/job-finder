@@ -1,4 +1,10 @@
-import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  StyleSheet,
+  TextInput,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import EvilIcons from "@expo/vector-icons/EvilIcons";
 import { theme } from "../theme";
 
@@ -8,17 +14,15 @@ export const Search = () => {
       <TextInput
         style={styles.searchInput}
         placeholder="Search jobs"
-        // value={}
-        // onChangeText={setValue}
-        // keyboardType="default"
         returnKeyType="search"
-        // onSubmitEditing={handleSubmit}
       />
       <TouchableOpacity
         style={styles.searchBtn}
         onPress={() => console.log("pressed")}
       >
-        <EvilIcons name="search" size={24} color={theme.colorWhite} />
+        <Text>
+          <EvilIcons name="search" size={24} color={theme.colorWhite} />
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -34,6 +38,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     padding: 12,
     marginVertical: 12,
+    marginLeft: 12,
     fontSize: 18,
     borderRadius: 10,
     backgroundColor: theme.colorWhite,
@@ -44,9 +49,10 @@ const styles = StyleSheet.create({
     color: theme.colorWhite,
     justifyContent: "center",
     alignItems: "center",
-    margin: "auto",
+    marginVertical: "auto",
     height: 48,
     width: 48,
     borderRadius: 10,
+    marginRight: 12,
   },
 });

@@ -5,6 +5,7 @@ import {
   ImageBackground,
   FlatList,
   ActivityIndicator,
+  TouchableOpacity,
 } from "react-native";
 import { theme } from "../theme";
 import { featuredJobs } from "../constants";
@@ -15,11 +16,24 @@ export const FeaturedJobs = ({ isLoading }: { isLoading: boolean }) => {
   const jobs = featuredJobs;
 
   return (
-    <View style={{ marginTop: 10, marginBottom: 20 }}>
-      <Text style={styles.heading}>Featured jobs</Text>
+    <View>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginHorizontal: 12,
+        }}
+      >
+        <Text style={styles.heading}>Featured jobs</Text>
+        <TouchableOpacity>
+          <Text style={styles.headerBtn}>Show all</Text>
+        </TouchableOpacity>{" "}
+      </View>
       <FlatList
         data={jobs}
-        renderItem={({ item }) =>
+        contentContainerStyle={styles.contentContainer}
+        renderItem={({ item, index }) =>
           isLoading ? (
             <View
               style={{
@@ -31,7 +45,13 @@ export const FeaturedJobs = ({ isLoading }: { isLoading: boolean }) => {
               <ActivityIndicator />
             </View>
           ) : (
-            <View style={styles.jobContainer} key={item.company}>
+            <View
+              style={[
+                styles.jobContainer,
+                index === 0 ? { marginLeft: 12 } : undefined,
+              ]}
+              key={item.company}
+            >
               <ImageBackground
                 source={image}
                 resizeMode="cover"
@@ -72,16 +92,23 @@ export const FeaturedJobs = ({ isLoading }: { isLoading: boolean }) => {
 };
 
 const styles = StyleSheet.create({
+  contentContainer: {
+    paddingBottom: 24,
+  },
+
   heading: {
     fontSize: 24,
     fontWeight: "600",
     marginVertical: 8,
   },
+  headerBtn: {
+    fontSize: 16,
+    fontFamily: "400",
+    color: theme.colorGrey,
+  },
   jobContainer: {
     flexDirection: "row",
     marginVertical: 8,
-    borderColor: "#f00",
-    borderWidth: 1,
   },
   jobImage: {
     width: 300,

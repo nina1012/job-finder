@@ -28,13 +28,18 @@ export const Categories = ({
         }
         contentContainerStyle={{ columnGap: 8 }}
         keyExtractor={(item) => item}
-        renderItem={({ item }) => (
+        renderItem={({ item, index }) => (
           <TouchableOpacity
             onPress={() => {
               setActiveCategory(item);
             }}
             style={[
               styles.categoriesItem,
+              index === 0
+                ? { marginLeft: 12 }
+                : categories.length - 1 === index
+                  ? { marginRight: 12 }
+                  : undefined,
               active === item ? styles.activeCategory : undefined,
             ]}
           >
