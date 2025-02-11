@@ -6,13 +6,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { theme } from "../theme";
+import { categories } from "../constants";
 
 export const Categories = ({
-  categories,
   active,
   setActiveCategory,
 }: {
-  categories: string[];
   active: string;
   setActiveCategory: (category: string) => void;
 }) => {
@@ -22,6 +21,11 @@ export const Categories = ({
         data={categories}
         horizontal
         showsHorizontalScrollIndicator={false}
+        ListEmptyComponent={
+          <View>
+            <Text>No categories to show</Text>
+          </View>
+        }
         contentContainerStyle={{ columnGap: 8 }}
         keyExtractor={(item) => item}
         renderItem={({ item }) => (

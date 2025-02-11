@@ -6,7 +6,11 @@ import Fontisto from "@expo/vector-icons/Fontisto";
 
 export default function Layout() {
   return (
-    <Tabs screenOptions={{ tabBarActiveTintColor: theme.colorPurple }}>
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: theme.colorPurple,
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
