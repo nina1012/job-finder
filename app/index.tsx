@@ -1,7 +1,7 @@
 import {
   ActivityIndicator,
   SafeAreaView,
-  ScrollView,
+  FlatList,
   StyleSheet,
   Text,
   View,
@@ -12,61 +12,53 @@ import { Search } from "../components/search";
 import { Categories } from "../components/categories";
 import { useFetch } from "../hooks/useFetch";
 import { API_URL } from "../constants";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FeaturedJobs } from "../components/featured-jobs";
 import { StatusBar } from "expo-status-bar";
 import { Job } from "../types";
+import { RecommendedJobs } from "../components/recommended-jobs";
 
 export default function App() {
   const { data: jobs, isLoading } = useFetch(API_URL);
 
   const [activeCategory, setActiveCategory] = useState("Back-end Developer");
-  const [filteredJobs, setFilteredJobs] = jobs.filter(
-    (job: Job) => job.job_category === activeCategory
-  );
+  const [filteredJobs, setFilteredJobs] = useState<Job[]>([]);
+
+  useEffect(() => {
+    if (jobs && jobs.length > 0) {
+      setFilteredJobs(
+        jobs.filter((job: Job) => job.job_category === activeCategory)
+      );
+    }
+  }, [activeCategory, jobs]); // ✅ Re-run when `activeCategory` or `jobs` change
+
+  if (isLoading) {
+    return (
+      <View style={styles.loader}>
+        <ActivityIndicator size="large" color={theme.colorPurple} />
+      </View>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <Text style={styles.heading}>Find your job</Text>
-        <Search />
-        {isLoading ? (
-          <View
-            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-          >
-            <ActivityIndicator size="large" color={theme.colorPurple} />
-          </View>
-        ) : (
-          <ScrollView>
+      <FlatList
+        data={filteredJobs}
+        keyExtractor={(item) => item.id}
+        ListHeaderComponent={
+          <>
+            <Text style={styles.heading}>Find your job</Text>
+            <Search />
             <Categories
               setActiveCategory={setActiveCategory}
               active={activeCategory}
             />
             <FeaturedJobs isLoading={isLoading} />
-            <ScrollView style={{ marginLeft: 12 }}>
-              {[1, 2, 3, 4, 5].map((item) => (
-                <View
-                  key={item}
-                  style={[
-                    styles.container,
-                    {
-                      width: 300,
-                      height: 300,
-                      alignItems: "center",
-                      justifyContent: "center",
-                      backgroundColor: theme.colorPurple,
-                      marginTop: 8,
-                    },
-                  ]}
-                >
-                  <Text>{item}</Text>
-                </View>
-              ))}
-            </ScrollView>
-          </ScrollView>
-        )}
-      </ScrollView>
-
+            <RecommendedJobs jobs={filteredJobs} isLoading={isLoading} />
+          </>
+        }
+        renderItem={() => null}
+      />
       <StatusBar />
     </SafeAreaView>
   );
@@ -77,13 +69,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.colorWhite,
     paddingVertical: 12,
-    paddingLeft: 20,
+    // paddingLeft: 20,
   },
   heading: {
-    fontSize: 36,
+    fontSize: 28,
     fontWeight: "600",
     textTransform: "capitalize",
-    marginTop: 40,
+    marginTop: 20,
     marginHorizontal: 12,
   },
+  loader: { flex: 1, justifyContent: "center", alignItems: "center" },
 });

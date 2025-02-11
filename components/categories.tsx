@@ -61,7 +61,7 @@ export const Categories = ({
 const styles = StyleSheet.create({
   categories: {
     flexDirection: "row",
-    marginVertical: 8,
+    marginVertical: 12,
   },
   categoriesItem: {
     borderColor: theme.colorPurple,

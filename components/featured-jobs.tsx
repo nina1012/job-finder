@@ -12,7 +12,11 @@ import { featuredJobs } from "../constants";
 
 const image = { uri: "https://legacy.reactjs.org/logo-og.png" };
 
-export const FeaturedJobs = ({ isLoading }: { isLoading: boolean }) => {
+type FeaturedJobsProps = {
+  isLoading: boolean;
+};
+
+export const FeaturedJobs = ({ isLoading }: FeaturedJobsProps) => {
   const jobs = featuredJobs;
 
   return (
@@ -97,9 +101,9 @@ const styles = StyleSheet.create({
   },
 
   heading: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "600",
-    marginVertical: 8,
+    marginVertical: 4,
   },
   headerBtn: {
     fontSize: 16,
