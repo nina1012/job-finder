@@ -22,7 +22,9 @@
         "backgroundColor": "#ffffff"
       }
     },
+
     "web": {
+      "bundler": "metro",
       "favicon": "./assets/job-finder.png"
     },
     "plugins": ["expo-router"]

@@ -30,7 +30,7 @@ export default function App() {
         jobs.filter((job: Job) => job.job_category === activeCategory)
       );
     }
-  }, [activeCategory, jobs]); // ✅ Re-run when `activeCategory` or `jobs` change
+  }, [activeCategory, jobs]);
 
   if (isLoading) {
     return (
@@ -54,12 +54,15 @@ export default function App() {
               active={activeCategory}
             />
             <FeaturedJobs isLoading={isLoading} />
-            <RecommendedJobs jobs={filteredJobs} isLoading={isLoading} />
+            <RecommendedJobs
+              jobs={filteredJobs || jobs}
+              isLoading={isLoading}
+            />
           </>
         }
         renderItem={() => null}
       />
-      <StatusBar />
+      <StatusBar style="auto" />
     </SafeAreaView>
   );
 }
@@ -69,7 +72,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.colorWhite,
     paddingVertical: 12,
-    // paddingLeft: 20,
   },
   heading: {
     fontSize: 28,

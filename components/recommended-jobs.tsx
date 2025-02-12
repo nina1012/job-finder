@@ -1,15 +1,14 @@
 import {
-  ScrollView,
   View,
   Text,
   StyleSheet,
   FlatList,
-  ImageBackground,
   ActivityIndicator,
   Image,
 } from "react-native";
 import { theme } from "../theme";
 import { Job } from "../types";
+import { Link } from "expo-router";
 
 const image = { uri: "https://ingamejob.com/assets/images/company.png" };
 
@@ -21,13 +20,24 @@ type RecommendedJobsProps = {
 export const RecommendedJobs = ({ jobs, isLoading }: RecommendedJobsProps) => {
   return (
     <View style={{ marginLeft: 12 }}>
-      <Text style={styles.heading}>Recommended for you</Text>
+      <Text style={styles.heading}>Recommended for you </Text>
+      <Text
+        style={{
+          color: theme.colorPurple,
+          fontWeight: "600",
+          marginVertical: 8,
+          textDecorationColor: theme.colorPurple,
+          textDecorationStyle: "solid",
+        }}
+      >
+        {jobs.length} jobs available
+      </Text>
       <FlatList
         data={jobs}
         contentContainerStyle={styles.contentContainer}
         ListEmptyComponent={
           <View>
-            <Text>No recommended jobs at the moment...</Text>
+            <Text>No recommended jobs at the moment... 😬</Text>
           </View>
         }
         renderItem={({ item }) => {
@@ -42,21 +52,37 @@ export const RecommendedJobs = ({ jobs, isLoading }: RecommendedJobsProps) => {
               <ActivityIndicator />
             </View>
           ) : (
-            <View style={[styles.jobContainer]} key={item.company}>
-              <Image source={image} style={styles.jobImage} />
-              <View
-                style={{ justifyContent: "center", gap: 8, marginLeft: 10 }}
-              >
-                <Text style={{ fontWeight: 700 }}>{item.job_category}</Text>
-                <Text style={{ color: theme.colorGrey }}>
-                  {item.location.length > 30
-                    ? item.location.substring(0, 20) + " ..."
-                    : item.location}
-                </Text>
+            <Link href={`/job/${item.id}`}>
+              <View style={[styles.jobContainer]} key={item.company}>
+                <Image source={image} style={styles.jobImage} />
+                <View
+                  style={{ justifyContent: "center", gap: 8, marginLeft: 10 }}
+                >
+                  <Text style={{ fontWeight: 700 }}>{item.job_category}</Text>
+                  <Text style={{ color: theme.colorGrey }}>
+                    {item.location.length > 30
+                      ? item.location.substring(0, 20) + " ..."
+                      : item.location}
+                  </Text>
+                </View>
               </View>
-            </View>
+            </Link>
           );
         }}
+        ListFooterComponent={
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: 10,
+              marginBottom: 20,
+            }}
+          >
+            <Text style={{ color: theme.colorPurple }}>
+              It looks like you reached the end of list{" "}
+            </Text>
+          </View>
+        }
       />
     </View>
   );

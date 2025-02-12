@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { theme } from "../theme";
 import { featuredJobs } from "../constants";
+import { Link } from "expo-router";
 
 const image = { uri: "https://legacy.reactjs.org/logo-og.png" };
 
@@ -52,42 +53,46 @@ export const FeaturedJobs = ({ isLoading }: FeaturedJobsProps) => {
             <View
               style={[
                 styles.jobContainer,
-                index === 0 ? { marginLeft: 12 } : undefined,
+                index === 0
+                  ? { marginLeft: 12, marginRight: 8 }
+                  : { marginRight: 12, marginLeft: 4 },
               ]}
-              key={item.company}
+              key={item.id}
             >
-              <ImageBackground
-                source={image}
-                resizeMode="cover"
-                style={styles.jobImage}
-              >
-                <View
-                  style={{
-                    padding: 10,
-                    paddingBottom: 20,
-                    marginTop: "auto",
-                    gap: 4,
-                  }}
+              <Link href={`/job/${item.id}`}>
+                <ImageBackground
+                  source={image}
+                  resizeMode="cover"
+                  style={styles.jobImage}
                 >
-                  <Text
-                    style={[
-                      styles.jobText,
-                      { fontWeight: "600", fontSize: 18 },
-                    ]}
+                  <View
+                    style={{
+                      padding: 10,
+                      paddingBottom: 20,
+                      marginTop: "auto",
+                      gap: 4,
+                    }}
                   >
-                    {item.job_category}
-                  </Text>
-                  <Text style={[styles.jobText]}>{item.location}</Text>
-                </View>
-              </ImageBackground>
+                    <Text
+                      style={[
+                        styles.jobText,
+                        { fontWeight: "600", fontSize: 18 },
+                      ]}
+                    >
+                      {item.job_category}
+                    </Text>
+                    <Text style={[styles.jobText]}>{item.location}</Text>
+                  </View>
+                </ImageBackground>
+              </Link>
             </View>
           )
         }
         horizontal
         showsHorizontalScrollIndicator={false}
         ListEmptyComponent={
-          <View>
-            <Text>No categories to show</Text>
+          <View style={{ alignItems: "center", marginTop: 20 }}>
+            <Text>No jobs to show</Text>
           </View>
         }
       />
@@ -117,10 +122,10 @@ const styles = StyleSheet.create({
   jobImage: {
     width: 300,
     height: 200,
-    resizeMode: "center",
-    overflow: "hidden",
+    resizeMode: "cover",
     borderRadius: 20,
     marginRight: 8,
+    overflow: "hidden",
   },
   jobText: {
     color: theme.colorWhite,

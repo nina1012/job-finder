@@ -1,14 +1,18 @@
-import { Tabs } from "expo-router";
+import { Tabs, useRouter } from "expo-router";
 import { theme } from "../theme";
 import Entypo from "@expo/vector-icons/Entypo";
 import EvilIcons from "@expo/vector-icons/EvilIcons";
 import Fontisto from "@expo/vector-icons/Fontisto";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import { Pressable } from "react-native";
 
 export default function Layout() {
+  const router = useRouter();
   return (
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: theme.colorPurple,
+        headerBackground: () => theme.colorPurple,
       }}
     >
       <Tabs.Screen
@@ -38,6 +42,24 @@ export default function Layout() {
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Fontisto name="favorite" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="job/[id]"
+        options={{
+          href: null,
+          headerShown: true,
+          headerTitle: "",
+          headerLeft: () => (
+            <Pressable onPress={() => router.push("/")}>
+              <AntDesign
+                name="leftcircleo"
+                size={24}
+                color={theme.colorPurple}
+                style={{ marginLeft: 10 }}
+              />
+            </Pressable>
           ),
         }}
       />
