@@ -9,6 +9,7 @@ import {
 import { theme } from "../theme";
 import { Job } from "../types";
 import { Link } from "expo-router";
+import { Loader } from "./loader";
 
 const image = { uri: "https://ingamejob.com/assets/images/company.png" };
 
@@ -42,15 +43,7 @@ export const RecommendedJobs = ({ jobs, isLoading }: RecommendedJobsProps) => {
         }
         renderItem={({ item }) => {
           return isLoading ? (
-            <View
-              style={{
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <ActivityIndicator />
-            </View>
+            <Loader />
           ) : (
             <Link href={`/job/${item.id}`}>
               <View style={[styles.jobContainer]} key={item.company}>

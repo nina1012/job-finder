@@ -4,7 +4,7 @@ import Entypo from "@expo/vector-icons/Entypo";
 import EvilIcons from "@expo/vector-icons/EvilIcons";
 import Fontisto from "@expo/vector-icons/Fontisto";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { Pressable } from "react-native";
+import { Pressable, StatusBar } from "react-native";
 
 export default function Layout() {
   const router = useRouter();
@@ -62,6 +62,7 @@ export default function Layout() {
           ),
         }}
       />
+      <StatusBar barStyle="dark-content" />
     </Tabs>
   );
 }
