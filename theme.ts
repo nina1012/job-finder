@@ -7,3 +7,7 @@ export const theme = {
   colorRed: "#ee6055",
   colorPurple: "#7e46fb",
 };
+
+export const fontSizes = {
+  heading: 22,
+};
